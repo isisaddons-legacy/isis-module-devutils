@@ -36,7 +36,7 @@ import org.apache.isis.applib.util.ObjectContracts;
         column="version")
 @ObjectType("SIMPLE")
 @Bookmarkable
-public class SimpleObject implements Comparable<SimpleObject> {
+public class DevUtilsDemoObject implements Comparable<DevUtilsDemoObject> {
 
     //region > name (property)
     // //////////////////////////////////////
@@ -61,7 +61,7 @@ public class SimpleObject implements Comparable<SimpleObject> {
     // //////////////////////////////////////
 
     @Override
-    public int compareTo(SimpleObject other) {
+    public int compareTo(DevUtilsDemoObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 

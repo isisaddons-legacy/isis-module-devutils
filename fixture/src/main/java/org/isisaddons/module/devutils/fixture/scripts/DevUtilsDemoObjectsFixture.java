@@ -19,13 +19,13 @@
 
 package org.isisaddons.module.devutils.fixture.scripts;
 
-import org.isisaddons.module.devutils.fixture.dom.SimpleObject;
-import org.isisaddons.module.devutils.fixture.dom.SimpleObjects;
+import org.isisaddons.module.devutils.fixture.dom.DevUtilsDemoObject;
+import org.isisaddons.module.devutils.fixture.dom.DevUtilsDemoObjects;
 import org.apache.isis.applib.fixturescripts.DiscoverableFixtureScript;
 
-public class SimpleObjectsFixture extends DiscoverableFixtureScript {
+public class DevUtilsDemoObjectsFixture extends DiscoverableFixtureScript {
 
-    public SimpleObjectsFixture() {
+    public DevUtilsDemoObjectsFixture() {
         withDiscoverability(Discoverability.DISCOVERABLE);
     }
 
@@ -33,7 +33,7 @@ public class SimpleObjectsFixture extends DiscoverableFixtureScript {
     protected void execute(ExecutionContext executionContext) {
 
         // prereqs
-        execute(new SimpleObjectsTearDownFixture(), executionContext);
+        execute(new DevUtilsDemoObjectsTearDownFixture(), executionContext);
 
         // create
         create("Foo", executionContext);
@@ -43,13 +43,13 @@ public class SimpleObjectsFixture extends DiscoverableFixtureScript {
 
     // //////////////////////////////////////
 
-    private SimpleObject create(final String name, ExecutionContext executionContext) {
-        return executionContext.add(this, simpleObjects.create(name));
+    private DevUtilsDemoObject create(final String name, ExecutionContext executionContext) {
+        return executionContext.add(this, devUtilsDemoObjects.create(name));
     }
 
     // //////////////////////////////////////
 
     @javax.inject.Inject
-    private SimpleObjects simpleObjects;
+    private DevUtilsDemoObjects devUtilsDemoObjects;
 
 }
