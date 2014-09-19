@@ -58,7 +58,7 @@ public class DevUtilsModuleSystemInitializer {
 
         private static IsisConfiguration testConfiguration() {
             final IsisConfigurationForJdoIntegTests testConfiguration = new IsisConfigurationForJdoIntegTests();
-            testConfiguration.addRegisterEntitiesPackagePrefix("dom");
+            testConfiguration.addRegisterEntitiesPackagePrefix("org.isisaddons.module.devutils");
             return testConfiguration;
         }
     }

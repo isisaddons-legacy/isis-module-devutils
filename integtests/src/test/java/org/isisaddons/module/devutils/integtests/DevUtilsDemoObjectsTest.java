@@ -18,16 +18,22 @@ package org.isisaddons.module.devutils.integtests;
 
 import java.util.List;
 import javax.inject.Inject;
+import com.google.common.base.Charsets;
+import com.google.common.io.Resources;
+import org.isisaddons.module.devutils.dom.DeveloperUtilitiesService;
 import org.isisaddons.module.devutils.fixture.dom.DevUtilsDemoObject;
 import org.isisaddons.module.devutils.fixture.dom.DevUtilsDemoObjects;
 import org.isisaddons.module.devutils.fixture.scripts.DevUtilsDemoObjectsFixture;
 import org.junit.Before;
 import org.junit.Test;
+import org.apache.isis.applib.value.Clob;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class DevUtilsDemoObjectsTest extends DevUtilsModuleIntegTest {
+
+    private DevUtilsDemoObject demoObject;
 
     @Before
     public void setUpData() throws Exception {
@@ -36,24 +42,35 @@ public class DevUtilsDemoObjectsTest extends DevUtilsModuleIntegTest {
 
     @Inject
     private DevUtilsDemoObjects devUtilsDemoObjects;
+    @Inject
+    private DeveloperUtilitiesService developerUtilitiesService;
 
-    @Test
-    public void listAll() throws Exception {
+    @Before
+    public void setUp() throws Exception {
 
         final List<DevUtilsDemoObject> all = wrap(devUtilsDemoObjects).listAll();
         assertThat(all.size(), is(3));
-        
-        DevUtilsDemoObject devUtilsDemoObject = wrap(all.get(0));
-        assertThat(devUtilsDemoObject.getName(), is("Foo"));
+
+        demoObject = all.get(0);
+        assertThat(demoObject.getName(), is("Foo"));
+
+    }
+
+    @Test
+    public void downloadLayoutJson() throws Exception {
+
+        // given
+        final String expected = Resources.toString(Resources.getResource(getClass(), "expected.json"), Charsets.UTF_8);
+
+        // when
+        final Clob clob = developerUtilitiesService.downloadLayout(demoObject);
+
+        // then
+        final CharSequence chars = clob.getChars();
+        final String actual = chars.toString();
+
+        assertThat(actual, is(expected));
     }
     
-    @Test
-    public void create() throws Exception {
-
-        wrap(devUtilsDemoObjects).create("Faz");
-        
-        final List<DevUtilsDemoObject> all = wrap(devUtilsDemoObjects).listAll();
-        assertThat(all.size(), is(4));
-    }
 
 }
