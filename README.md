@@ -1,10 +1,12 @@
-# isis-module-xxx #
+# isis-module-devutils #
 
-[![Build Status](https://travis-ci.org/isisaddons/isis-module-xxx.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-xxx)
+[![Build Status](https://travis-ci.org/isisaddons/isis-module-devutils.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-devutils)
 
-This module, intended for use with [Apache Isis](http://isis.apache.org), provides 
+This module, intended for use with [Apache Isis](http://isis.apache.org), provides a number of development-time 
+utilities, mostly related to accessing/interacting with the Isis metamodel. These are visible in the UI either as menu 
+actions or as contributed actions. 
 
-The module consists of ...
+All actions are annotated with `@Prototype`, so are suppressed in production mode.
 
 ## Screenshots ##
 
@@ -12,21 +14,53 @@ The following screenshots show an example app's usage of the module.
 
 #### Installing the Fixture Data ####
 
+Install sample fixtures: 
 
-#### yada ####
+![](https://raw.github.com/isisaddons/isis-module-devutils/master/images/010-install-fixtures.png)
 
+#### Downloading a single .layout.json file ####
 
-#### yada ####
+The module contributes the `download layouts` action:
+
+![](https://raw.github.com/isisaddons/isis-module-devutils/master/images/020-download-layout.png)
+
+... which downloads a JSON file:
+
+![](https://raw.github.com/isisaddons/isis-module-devutils/master/images/030-layout-downloaded.png)
+
+... that contains a `.layout.json` corresponding to the current Isis metamodel (as specified by any annotations etc).
+
+![](https://raw.github.com/isisaddons/isis-module-devutils/master/images/040-layout.png)
+
+The developer can copy the JSON file into the correct location (alongside the `.java` class file) and update as required.
+The JSON files takes precedence over any annotations.
+
+#### Downloading all .layout.json file ####
+
+If there are many (or all) entities that require a `.layout.json` file, then a zip of all the layouts can be downloaded:
+
+![](https://raw.github.com/isisaddons/isis-module-devutils/master/images/050-download-layouts.png)
+
+#### Downloading the metamodel as a CSV  ####
+
+To support code reviews and adhoc analysis of the code base, the metamodel can be downloaded as a CSV file:
+
+![](https://raw.github.com/isisaddons/isis-module-devutils/master/images/070-download-metamodel.png)
+
+... which can then be opened in a spreadsheet or other tool:
+
+![](https://raw.github.com/isisaddons/isis-module-devutils/master/images/090-metamodel-in-excel.png)
 
 
 ## Relationship to Apache Isis Core ##
 
-Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-xxx:1.6.0` Maven artifact.  This module is a
+Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-devutils:1.6.0` Maven artifact.  This module is a
 direct copy of that code, with the following changes:
 
-* package names have been altered from `org.apache.isis` to `org.isisaddons.module.command`
-* the `persistent-unit` (in the JDO manifest) has changed from `isis-module-xxx` to 
-  `org-isisaddons-module-xxx-dom`
+* package names have been altered from `org.apache.isis` to `org.isisaddons.module.devutils`
+* for simplicity, the applib and impl submodules have been combined into a single
+* the `DeveloperUtilitiesServiceDefault` is now annotated with `@DomainService` so does not need explicitly registering
+  in `isis.properties`.
 
 Otherwise the functionality is identical; warts and all!
 
@@ -44,26 +78,11 @@ To use "out-of-the-box":
 
 <pre>
     &lt;dependency&gt;
-        &lt;groupId&gt;org.isisaddons.module.xxx&lt;/groupId&gt;
-        &lt;artifactId&gt;isis-module-xxx-dom&lt;/artifactId&gt;
+        &lt;groupId&gt;org.isisaddons.module.devutils&lt;/groupId&gt;
+        &lt;artifactId&gt;isis-module-devutils-dom&lt;/artifactId&gt;
         &lt;version&gt;1.6.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
-
-* update your `WEB-INF/isis.properties`:
-
-<pre>
-    isis.services-installer=configuration-and-annotation
-    isis.services.ServicesInstallerFromAnnotation.packagePrefix=
-                    ...,\
-                    org.isisaddons.module.xxx.xxx,\
-                    ...
-
-    isis.services = ...,\
-                    org.isisaddons.module.audit.XxxContributions,\
-                    ...
-                    
-The `XxxContributions` service is optional but recommended; see below for more information.
 
 If instead you want to extend this module's functionality, then we recommend that you fork this repo.  The repo is 
 structured as follows:
@@ -78,26 +97,12 @@ Only the `dom` project is released to     Check for versions available in the
 [Maven Central Repo](http://search.maven.org/#search|ga|1|isis-module-audit-dom).  The versions of the other modules 
 are purposely left at `0.0.1-SNAPSHOT` because they are not intended to be released.
 
-## API ##
-
-### XxxService ###
-
-The `XxxService` defines the following API:
-
-<pre>
-public interface XxxService {
-}
-</pre>
-
-
-## Implementation ##
-
-## Supporting Services ##
 
 ## Related Modules/Services ##
 
-... referenced by the [Isis Add-ons](http://www.isisaddons.org) website.
-
+The [Isis Addons Security Module](http://github.com/isisaddons/isis-module-security) also exposes aspects of the
+Isis metamodel (in its `ApplicationFeatures` service and `ApplicationFeature` class).  In the future this functionality
+within the security module may move into this devutils module. 
 
 
 ## Legal Stuff ##
@@ -152,8 +157,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 \
-                  1.6.2-SNAPSHOT \
+    sh release.sh 1.6.0 \
+                  1.6.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
@@ -176,7 +181,7 @@ If you don't want to use `release.sh`, then the steps can be performed manually.
 
 To start, call `bumpver.sh` to bump up to the release version, eg:
 
-     `sh bumpver.sh 1.6.1`
+     `sh bumpver.sh 1.6.0`
 
 which:
 * edit the parent `pom.xml`, to change `${isis-module-command.version}` to version
@@ -214,6 +219,6 @@ releasing from the command line using `mvn nexus-staging:release`.
 
 Finally, don't forget to update the release to next snapshot, eg:
 
-    sh bumpver.sh 1.6.2-SNAPSHOT
+    sh bumpver.sh 1.6.1-SNAPSHOT
 
 and then push changes.
