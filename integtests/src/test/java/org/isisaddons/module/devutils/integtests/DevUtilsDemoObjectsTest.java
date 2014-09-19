@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2013~2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -18,12 +16,11 @@
  */
 package org.isisaddons.module.devutils.integtests;
 
+import java.util.List;
+import javax.inject.Inject;
 import org.isisaddons.module.devutils.fixture.dom.DevUtilsDemoObject;
 import org.isisaddons.module.devutils.fixture.dom.DevUtilsDemoObjects;
 import org.isisaddons.module.devutils.fixture.scripts.DevUtilsDemoObjectsFixture;
-
-import java.util.List;
-import javax.inject.Inject;
 import org.junit.Before;
 import org.junit.Test;
 

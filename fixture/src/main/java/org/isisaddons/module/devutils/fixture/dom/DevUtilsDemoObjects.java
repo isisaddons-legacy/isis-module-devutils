@@ -1,9 +1,7 @@
 /*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
+ *  Copyright 2013~2014 Dan Haywood
+ *
+ *  Licensed under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
  *
@@ -27,7 +25,6 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 public class DevUtilsDemoObjects {
 
     //region > identification in the UI
-    // //////////////////////////////////////
 
     public String getId() {
         return "simple";
@@ -40,7 +37,6 @@ public class DevUtilsDemoObjects {
     //endregion
 
     //region > listAll (action)
-    // //////////////////////////////////////
 
     @Bookmarkable
     @ActionSemantics(Of.SAFE)
@@ -52,8 +48,7 @@ public class DevUtilsDemoObjects {
     //endregion
 
     //region > create (action)
-    // //////////////////////////////////////
-    
+
     @MemberOrder(sequence = "2")
     public DevUtilsDemoObject create(
             final @Named("Name") String name) {
@@ -66,7 +61,6 @@ public class DevUtilsDemoObjects {
     //endregion
 
     //region > injected services
-    // //////////////////////////////////////
 
     @javax.inject.Inject 
     DomainObjectContainer container;
