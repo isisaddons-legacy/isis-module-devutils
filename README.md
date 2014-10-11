@@ -52,6 +52,25 @@ To support code reviews and adhoc analysis of the code base, the metamodel can b
 ![](https://raw.github.com/isisaddons/isis-module-devutils/master/images/090-metamodel-in-excel.png)
 
 
+## How to run the Demo App ##
+
+The prerequisite software is:
+
+* Java JDK 7 (nb: Isis currently does not support JDK 8)
+* [maven 3](http://maven.apache.org) (3.2.x is recommended).
+
+To build the demo app:
+
+    git clone https://github.com/isisaddons/isis-module-devutils.git
+    mvn clean install
+
+To run the demo app:
+
+    mvn antrun:run -P self-host
+    
+Then log on using user: `sven`, password: `pass`
+
+
 ## Relationship to Apache Isis Core ##
 
 Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-devutils:1.6.0` Maven artifact.  This module is a
