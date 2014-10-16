@@ -44,7 +44,7 @@ import org.apache.isis.core.metamodel.spec.SpecificationLoaderSpi;
 import org.apache.isis.core.metamodel.spec.SpecificationLoaderSpiAware;
 import org.apache.isis.core.metamodel.spec.feature.*;
 
-@DomainService
+@DomainService(menuOrder = "99")
 public class DeveloperUtilitiesServiceDefault implements DeveloperUtilitiesService, SpecificationLoaderSpiAware, AdapterManagerAware {
 
 
