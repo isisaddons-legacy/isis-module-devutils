@@ -73,7 +73,7 @@ Then log on using user: `sven`, password: `pass`
 
 ## Relationship to Apache Isis Core ##
 
-Isis Core 1.6.0 included the `org.apache.isis.core:isis-module-devutils:1.6.0` Maven artifact.  This module is a
+Isis Core 1.6.0 included the `org.apache.isis.module:isis-module-devutils:1.6.0` Maven artifact.  This module is a
 direct copy of that code, with the following changes:
 
 * package names have been altered from `org.apache.isis` to `org.isisaddons.module.devutils`
@@ -83,8 +83,8 @@ direct copy of that code, with the following changes:
 
 Otherwise the functionality is identical; warts and all!
 
-At the time of writing the plan is to remove this module from Isis Core (so it won't be in Isis 1.7.0), and instead 
-continue to develop it solely as one of the [Isis Addons](http://www.isisaddons.org) modules.
+Isis 1.7.0 no longer ships with `org.apache.isis.module:isis-module-devutils`;
+use this addon module instead.
 
 
 ## How to configure/use ##
@@ -99,7 +99,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.devutils&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-devutils-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.6.0&lt;/version&gt;
+        &lt;version&gt;1.7.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -126,6 +126,8 @@ within the security module may move into this devutils module.
 
 ## Change Log ##
 
+* `1.7.0` - released against Isis 1.7.0
+* `1.6.1` - closes issue#1.
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.devutils`
 
 
@@ -181,8 +183,8 @@ The `release.sh` script automates the release process.  It performs the followin
 
 For example:
 
-    sh release.sh 1.6.1 \
-                  1.6.2-SNAPSHOT \
+    sh release.sh 1.7.0 \
+                  1.7.1-SNAPSHOT \
                   dan@haywood-associates.co.uk \
                   "this is not really my passphrase"
     
