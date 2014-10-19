@@ -102,7 +102,7 @@ language governing permissions and limitations under the License.
         <dependency>
             <groupId>org.isisaddons.module.devutils</groupId>
             <artifactId>isis-module-devutils-dom</artifactId>
-            <version>1.6.2-SNAPSHOT</version>
+            <version>1.7.0</version>
         </dependency>
 
         <dependency>
