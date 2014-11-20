@@ -26,7 +26,7 @@ import org.apache.isis.applib.annotation.Prototype;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
-@Named("Developer Utilities")
+@Named("Prototyping")
 public interface DeveloperUtilitiesService {
 
     @MemberOrder(sequence="1")
