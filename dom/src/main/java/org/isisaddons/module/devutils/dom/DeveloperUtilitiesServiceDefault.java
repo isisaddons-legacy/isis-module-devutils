@@ -42,9 +42,13 @@ import org.apache.isis.core.metamodel.layoutmetadata.json.LayoutMetadataReaderFr
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.spec.SpecificationLoaderSpi;
 import org.apache.isis.core.metamodel.spec.SpecificationLoaderSpiAware;
-import org.apache.isis.core.metamodel.spec.feature.*;
+import org.apache.isis.core.metamodel.spec.feature.Contributed;
+import org.apache.isis.core.metamodel.spec.feature.ObjectAction;
+import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
+import org.apache.isis.core.metamodel.spec.feature.OneToManyAssociation;
+import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
 
-@DomainService(menuOrder = "99")
+@DomainService
 public class DeveloperUtilitiesServiceDefault implements DeveloperUtilitiesService, SpecificationLoaderSpiAware, AdapterManagerAware {
 
 
@@ -205,7 +209,6 @@ public class DeveloperUtilitiesServiceDefault implements DeveloperUtilitiesServi
     // //////////////////////////////////////
 
     private SpecificationLoaderSpi specificationLoader;
-    private AdapterManager adapterManager;
 
     @Programmatic
     @Override
@@ -213,6 +216,9 @@ public class DeveloperUtilitiesServiceDefault implements DeveloperUtilitiesServi
         this.specificationLoader = specificationLoader;
     }
 
+    private AdapterManager adapterManager;
+
+    @Programmatic
     @Override
     public void setAdapterManager(AdapterManager adapterManager) {
         this.adapterManager = adapterManager;

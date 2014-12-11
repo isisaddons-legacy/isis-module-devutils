@@ -16,22 +16,28 @@
  */
 package org.isisaddons.module.devutils.dom;
 
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.NotInServiceMenu;
-import org.apache.isis.applib.annotation.Prototype;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
-@Named("Prototyping")
+@DomainServiceLayout(
+        named = "Prototyping",
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
+        menuOrder = "20.3"
+)
 public interface DeveloperUtilitiesService {
 
-    @MemberOrder(sequence="1")
     @ActionSemantics(Of.SAFE)
-    @Prototype
+    @ActionLayout(
+            prototype = true
+    )
+    @MemberOrder(sequence="1")
     public Clob downloadMetaModel();
 
 
@@ -39,16 +45,20 @@ public interface DeveloperUtilitiesService {
      * Downloads a zip of the layout of all domain classes.
      */
     @ActionSemantics(Of.SAFE)
-    @MemberOrder(sequence="3")
-    @Prototype
+    @ActionLayout(
+            prototype = true
+    )
+    @MemberOrder(sequence="2")
     public Blob downloadLayouts();
 
     /**
      * Rebuilds the metamodel of all registered domain services.
      */
     @ActionSemantics(Of.SAFE)
+    @ActionLayout(
+            prototype = true
+    )
     @MemberOrder(sequence="3")
-    @Prototype
     public void refreshServices();
 
     /**
@@ -56,8 +66,10 @@ public interface DeveloperUtilitiesService {
      */
     @NotInServiceMenu
     @ActionSemantics(Of.SAFE)
-    @MemberOrder(sequence="2")
-    @Prototype
+    @ActionLayout(
+            prototype = true
+    )
+    @MemberOrder(sequence="98")
     public Clob downloadLayout(Object domainObject);
 
     /**
@@ -69,7 +81,9 @@ public interface DeveloperUtilitiesService {
     @NotInServiceMenu
     @ActionSemantics(Of.SAFE)
     @MemberOrder(sequence="99")
-    @Prototype
+    @ActionLayout(
+            prototype = true
+    )
     public Object refreshLayout(Object domainObject);
 
 }
