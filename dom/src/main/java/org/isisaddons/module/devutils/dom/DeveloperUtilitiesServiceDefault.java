@@ -162,10 +162,10 @@ public class DeveloperUtilitiesServiceDefault implements DeveloperUtilitiesServi
         
         final ObjectAdapter adapterFor = adapterManager.adapterFor(domainObject);
         final ObjectSpecification objectSpec = adapterFor.getSpecification();
-        
+
         final LayoutMetadataReaderFromJson propertiesReader = new LayoutMetadataReaderFromJson();
         final String json = propertiesReader.asJson(objectSpec);
-        
+
         return new Clob(objectSpec.getShortIdentifier() +".layout.json", mimeTypeApplicationJson, json);
     }
 
