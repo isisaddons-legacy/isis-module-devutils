@@ -16,6 +16,7 @@
  */
 package org.isisaddons.module.devutils.integtests;
 
+import org.isisaddons.module.devutils.integtests.bootstrapping.DevUtilsModuleSystemInitializer;
 import org.junit.BeforeClass;
 
 import org.apache.isis.core.integtestsupport.IntegrationTestAbstract;

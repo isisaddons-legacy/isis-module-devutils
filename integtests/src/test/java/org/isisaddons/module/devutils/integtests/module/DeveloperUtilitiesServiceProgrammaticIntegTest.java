@@ -14,7 +14,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.isisaddons.module.devutils.integtests;
+package org.isisaddons.module.devutils.integtests.module;
 
 import java.util.List;
 import javax.inject.Inject;
@@ -24,26 +24,28 @@ import org.isisaddons.module.devutils.dom.DeveloperUtilitiesService;
 import org.isisaddons.module.devutils.fixture.dom.DevUtilsDemoObject;
 import org.isisaddons.module.devutils.fixture.dom.DevUtilsDemoObjects;
 import org.isisaddons.module.devutils.fixture.scripts.DevUtilsDemoObjectsFixture;
+import org.isisaddons.module.devutils.integtests.DevUtilsModuleIntegTest;
 import org.junit.Before;
 import org.junit.Test;
+
 import org.apache.isis.applib.value.Clob;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class DevUtilsDemoObjectsTest extends DevUtilsModuleIntegTest {
+public class DeveloperUtilitiesServiceProgrammaticIntegTest extends DevUtilsModuleIntegTest {
 
-    private DevUtilsDemoObject demoObject;
+    DevUtilsDemoObject demoObject;
+
+    @Inject
+    DevUtilsDemoObjects devUtilsDemoObjects;
+    @Inject
+    DeveloperUtilitiesService developerUtilitiesService;
 
     @Before
     public void setUpData() throws Exception {
         scenarioExecution().install(new DevUtilsDemoObjectsFixture());
     }
-
-    @Inject
-    private DevUtilsDemoObjects devUtilsDemoObjects;
-    @Inject
-    private DeveloperUtilitiesService developerUtilitiesService;
 
     @Before
     public void setUp() throws Exception {
@@ -56,21 +58,25 @@ public class DevUtilsDemoObjectsTest extends DevUtilsModuleIntegTest {
 
     }
 
-    @Test
-    public void downloadLayoutJson() throws Exception {
+    public static class DownloadLayout extends DeveloperUtilitiesServiceProgrammaticIntegTest {
 
-        // given
-        final String expected = Resources.toString(Resources.getResource(getClass(), "expected.json"), Charsets.UTF_8);
+        @Test
+        public void happyCase() throws Exception {
 
-        // when
-        final Clob clob = developerUtilitiesService.downloadLayout(demoObject);
+            // given
+            final String expected = Resources.toString(Resources.getResource(getClass(), "expected.json"), Charsets.UTF_8);
 
-        // then
-        final CharSequence chars = clob.getChars();
-        final String actual = chars.toString();
+            // when
+            final Clob clob = developerUtilitiesService.downloadLayout(demoObject);
 
-        assertThat(actual, is(expected));
+            // then
+            final CharSequence chars = clob.getChars();
+            final String actual = chars.toString();
+
+            assertThat(actual, is(expected));
+        }
+
+
     }
-    
 
 }

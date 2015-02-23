@@ -32,6 +32,11 @@
       "named": {
         "value": "Download Layout"
       }
+    },
+    "refreshLayout": {
+      "named": {
+        "value": "Refresh Layout"
+      }
     }
   }
 }
