@@ -10,11 +10,7 @@ All actions are annotated with `@Prototype`, so are suppressed in production mod
 
 ## Screenshots ##
 
-The following screenshots show an example app's usage of the module.
-
-#### Installing the Fixture Data ####
-
-Install sample fixtures: 
+The following screenshots show an example app's usage of the module with some sample fixture data:
 
 ![](https://raw.github.com/isisaddons/isis-module-devutils/master/images/010-install-fixtures.png)
 
