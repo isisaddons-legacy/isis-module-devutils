@@ -19,9 +19,10 @@ package org.isisaddons.module.devutils.fixture.dom;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.VersionStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Bookmarkable;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.util.ObjectContracts;
 
@@ -32,8 +33,12 @@ import org.apache.isis.applib.util.ObjectContracts;
 @javax.jdo.annotations.Version(
         strategy=VersionStrategy.VERSION_NUMBER, 
         column="version")
-@ObjectType("SIMPLE")
-@Bookmarkable
+@DomainObject(
+        objectType = "SIMPLE"
+)
+@DomainObjectLayout(
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 public class DevUtilsDemoObject implements Comparable<DevUtilsDemoObject> {
 
     //region > name (property)
@@ -59,7 +64,7 @@ public class DevUtilsDemoObject implements Comparable<DevUtilsDemoObject> {
     // //////////////////////////////////////
 
     @Override
-    public int compareTo(DevUtilsDemoObject other) {
+    public int compareTo(final DevUtilsDemoObject other) {
         return ObjectContracts.compare(this, other, "name");
     }
 

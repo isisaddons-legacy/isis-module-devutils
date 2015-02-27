@@ -29,7 +29,6 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.value.Clob;
 
 @DomainService(
@@ -76,32 +75,6 @@ public class DeveloperUtilitiesServiceContributions  {
         }
     }
 
-    // //////////////////////////////////////
-
-    public static class RefreshLayoutEvent extends ActionDomainEvent {
-        public RefreshLayoutEvent(DeveloperUtilitiesServiceContributions source, Identifier identifier, Object... args) {
-            super(source, identifier, args);
-        }
-    }
-
-    /**
-     * @deprecated - in prototype mode the Wicket viewer (at least) will automatically invalidate
-     *               the Isis metamodel whenever the object is re-rendered.
-     */
-    @Action(
-            domainEvent = RefreshLayoutEvent.class,
-            semantics = SemanticsOf.SAFE,
-            restrictTo = RestrictTo.PROTOTYPING,
-            hidden = Where.EVERYWHERE
-    )
-    @ActionLayout(
-            contributed = Contributed.AS_ACTION
-    )
-    @MemberOrder(sequence="99")
-    @Deprecated
-    public Object refreshLayout(final Object domainObject) {
-        return developerUtilitiesService.refreshLayout(domainObject);
-    }
 
     // //////////////////////////////////////
 

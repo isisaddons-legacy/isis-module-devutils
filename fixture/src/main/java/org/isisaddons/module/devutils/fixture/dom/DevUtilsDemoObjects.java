@@ -18,10 +18,19 @@ package org.isisaddons.module.devutils.fixture.dom;
 
 import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.*;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
 
-@DomainService(menuOrder = "10", repositoryFor = DevUtilsDemoObject.class)
+@DomainService(repositoryFor = DevUtilsDemoObject.class)
+@DomainServiceLayout(
+        menuOrder = "10"
+)
 public class DevUtilsDemoObjects {
 
     //region > identification in the UI
@@ -38,8 +47,12 @@ public class DevUtilsDemoObjects {
 
     //region > listAll (action)
 
-    @Bookmarkable
-    @ActionSemantics(Of.SAFE)
+    @Action(
+            semantics = SemanticsOf.SAFE
+    )
+    @ActionLayout(
+            bookmarking = BookmarkPolicy.AS_ROOT
+    )
     @MemberOrder(sequence = "1")
     public List<DevUtilsDemoObject> listAll() {
         return container.allInstances(DevUtilsDemoObject.class);
@@ -51,7 +64,7 @@ public class DevUtilsDemoObjects {
 
     @MemberOrder(sequence = "2")
     public DevUtilsDemoObject create(
-            final @Named("Name") String name) {
+            @ParameterLayout(named="Name") final String name) {
         final DevUtilsDemoObject obj = container.newTransientInstance(DevUtilsDemoObject.class);
         obj.setName(name);
         container.persistIfNotAlready(obj);

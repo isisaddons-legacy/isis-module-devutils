@@ -30,6 +30,7 @@ import javax.activation.MimeTypeParseException;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
+import org.isisaddons.module.devutils.dom.layoutjson.LayoutJsonExporter;
 import org.apache.isis.applib.FatalException;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
@@ -39,7 +40,6 @@ import org.apache.isis.applib.value.Clob;
 import org.apache.isis.core.metamodel.adapter.ObjectAdapter;
 import org.apache.isis.core.metamodel.adapter.mgr.AdapterManager;
 import org.apache.isis.core.metamodel.adapter.mgr.AdapterManagerAware;
-import org.apache.isis.core.metamodel.layoutmetadata.json.LayoutMetadataReaderFromJson;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.spec.SpecificationLoaderSpi;
 import org.apache.isis.core.metamodel.spec.SpecificationLoaderSpiAware;
@@ -165,8 +165,8 @@ public class DeveloperUtilitiesServiceProgrammatic implements DeveloperUtilities
         final ObjectAdapter adapterFor = adapterManager.adapterFor(domainObject);
         final ObjectSpecification objectSpec = adapterFor.getSpecification();
 
-        final LayoutMetadataReaderFromJson propertiesReader = new LayoutMetadataReaderFromJson();
-        final String json = propertiesReader.asJson(objectSpec);
+        final LayoutJsonExporter exporter = new LayoutJsonExporter();
+        final String json = exporter.asJson(objectSpec);
 
         return new Clob(objectSpec.getShortIdentifier() +".layout.json", mimeTypeApplicationJson, json);
     }
@@ -175,7 +175,7 @@ public class DeveloperUtilitiesServiceProgrammatic implements DeveloperUtilities
 
     @Programmatic
     public Blob downloadLayouts() {
-        final LayoutMetadataReaderFromJson propertiesReader = new LayoutMetadataReaderFromJson();
+        final LayoutJsonExporter exporter = new LayoutJsonExporter();
         final Collection<ObjectSpecification> allSpecs = specificationLoader.allSpecifications();
         final Collection<ObjectSpecification> domainObjectSpecs = Collections2.filter(allSpecs, new Predicate<ObjectSpecification>(){
             @Override
@@ -191,7 +191,7 @@ public class DeveloperUtilitiesServiceProgrammatic implements DeveloperUtilities
             final OutputStreamWriter writer = new OutputStreamWriter(zos);
             for (final ObjectSpecification objectSpec : domainObjectSpecs) {
                 zos.putNextEntry(new ZipEntry(zipEntryNameFor(objectSpec)));
-                writer.write(propertiesReader.asJson(objectSpec));
+                writer.write(exporter.asJson(objectSpec));
                 writer.flush();
                 zos.closeEntry();
             }
