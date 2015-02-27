@@ -6,8 +6,6 @@ This module, intended for use with [Apache Isis](http://isis.apache.org), provid
 utilities, mostly related to accessing/interacting with the Isis metamodel. These are visible in the UI either as menu 
 actions or as contributed actions. 
 
-All actions are annotated with `@Prototype`, so are suppressed in production mode.
-
 ## Screenshots ##
 
 The following screenshots show an example app's usage of the module with some sample fixture data:
@@ -97,7 +95,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.devutils&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-devutils-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.7.0&lt;/version&gt;
+        &lt;version&gt;1.8.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -109,7 +107,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.8.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.9.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -160,6 +158,7 @@ within the security module may move into this devutils module.
 
 ## Change Log ##
 
+* `1.8.0` - released against Isis 1.8.0, support new @XxxLayout annotations; domain events for actions.
 * `1.7.0` - released against Isis 1.7.0
 * `1.6.1` - closes issue#1.
 * `1.6.0` - re-released as part of isisaddons, with classes under package `org.isisaddons.module.devutils`
@@ -169,7 +168,7 @@ within the security module may move into this devutils module.
  
 #### License ####
 
-    Copyright 2014 Dan Haywood
+    Copyright 2014-2015 Dan Haywood
 
     Licensed under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
