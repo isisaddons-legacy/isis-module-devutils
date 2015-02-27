@@ -73,6 +73,7 @@ public class DeveloperUtilitiesServiceProgrammaticIntegTest extends DevUtilsModu
             final CharSequence chars = clob.getChars();
             final String actual = chars.toString();
 
+            System.out.println(actual);
             assertThat(actual, is(expected));
         }
 

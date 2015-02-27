@@ -6,8 +6,8 @@
         "General": {
           "members": {
             "name": {
-              "typicalLength": {
-                "value": 25
+              "propertyLayout": {
+                "typicalLength": 25
               }
             }
           }
@@ -29,13 +29,9 @@
   ],
   "actions": {
     "downloadLayout": {
-      "named": {
-        "value": "Download Layout"
-      }
-    },
-    "refreshLayout": {
-      "named": {
-        "value": "Refresh Layout"
+      "actionLayout": {
+        "named": "Download Layout",
+        "contributed": "AS_ACTION"
       }
     }
   }
