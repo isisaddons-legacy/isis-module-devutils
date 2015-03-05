@@ -30,6 +30,7 @@
   "actions": {
     "downloadLayout": {
       "actionLayout": {
+        "cssClassFa": "fa fa-fw fa-download",
         "named": "Download Layout",
         "contributed": "AS_ACTION"
       }
