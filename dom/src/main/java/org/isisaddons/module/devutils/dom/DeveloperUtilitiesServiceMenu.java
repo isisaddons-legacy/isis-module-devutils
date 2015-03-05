@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import org.isisaddons.module.devutils.DevUtilsModule;
 import org.apache.isis.applib.Identifier;
 import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -35,7 +36,7 @@ import org.apache.isis.applib.value.Clob;
 @DomainServiceLayout(
         named = "Prototyping",
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
-        menuOrder = "20.3"
+        menuOrder = "500.600"
 )
 public class DeveloperUtilitiesServiceMenu {
 
@@ -58,7 +59,10 @@ public class DeveloperUtilitiesServiceMenu {
             semantics = SemanticsOf.SAFE,
             restrictTo = RestrictTo.PROTOTYPING
     )
-    @MemberOrder(sequence="1")
+    @ActionLayout(
+            cssClassFa = "fa-download"
+    )
+    @MemberOrder(sequence="500.600.1")
     public Clob downloadMetaModel() {
         return developerUtilitiesService.downloadMetaModel();
     }
@@ -76,7 +80,11 @@ public class DeveloperUtilitiesServiceMenu {
             semantics = SemanticsOf.SAFE,
             restrictTo = RestrictTo.PROTOTYPING
     )
-    @MemberOrder(sequence="3")
+    @ActionLayout(
+            named = "Rebuild Services Meta Model",
+            cssClassFa = "fa-refresh"
+    )
+    @MemberOrder(sequence="500.600.3")
     public void refreshServices() {
         developerUtilitiesService.refreshServices();
     }
@@ -94,7 +102,10 @@ public class DeveloperUtilitiesServiceMenu {
             semantics = SemanticsOf.SAFE,
             restrictTo = RestrictTo.PROTOTYPING
     )
-    @MemberOrder(sequence="2")
+    @ActionLayout(
+            cssClassFa = "fa-download"
+    )
+    @MemberOrder(sequence="500.600.2")
     public Blob downloadLayouts() {
         return developerUtilitiesService.downloadLayouts();
     }

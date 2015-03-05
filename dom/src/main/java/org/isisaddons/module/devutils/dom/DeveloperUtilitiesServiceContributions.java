@@ -36,8 +36,7 @@ import org.apache.isis.applib.value.Clob;
 )
 @DomainServiceLayout(
         named = "Prototyping",
-        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
-        menuOrder = "20.3"
+        menuBar = DomainServiceLayout.MenuBar.SECONDARY
 )
 public class DeveloperUtilitiesServiceContributions  {
 
@@ -93,9 +92,10 @@ public class DeveloperUtilitiesServiceContributions  {
             restrictTo = RestrictTo.PROTOTYPING
     )
     @ActionLayout(
-            contributed = Contributed.AS_ACTION
+            contributed = Contributed.AS_ACTION,
+            cssClassFa = "fa-download"
     )
-    @MemberOrder(sequence="98")
+    @MemberOrder(sequence="500.900")
     public Clob downloadLayout(final Object domainObject) {
         return developerUtilitiesService.downloadLayout(domainObject);
     }

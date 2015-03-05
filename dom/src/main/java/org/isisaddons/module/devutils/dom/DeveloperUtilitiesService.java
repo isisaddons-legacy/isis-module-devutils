@@ -20,11 +20,6 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
 
-@DomainServiceLayout(
-        named = "Prototyping",
-        menuBar = DomainServiceLayout.MenuBar.SECONDARY,
-        menuOrder = "20.3"
-)
 public interface DeveloperUtilitiesService {
 
     public Clob downloadMetaModel();
