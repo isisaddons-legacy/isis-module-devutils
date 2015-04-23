@@ -20,19 +20,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.isisaddons.module.devutils.dom.layoutjson.repr.ActionLayoutRepr;
-import org.isisaddons.module.devutils.dom.layoutjson.repr.ActionRepr;
-import org.isisaddons.module.devutils.dom.layoutjson.repr.CollectionLayoutRepr;
-import org.isisaddons.module.devutils.dom.layoutjson.repr.ColumnRepr;
-import org.isisaddons.module.devutils.dom.layoutjson.repr.MemberGroupRepr;
-import org.isisaddons.module.devutils.dom.layoutjson.repr.MemberRepr;
-import org.isisaddons.module.devutils.dom.layoutjson.repr.PropertyLayoutRepr;
+
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.LabelPosition;
@@ -51,6 +46,7 @@ import org.apache.isis.core.metamodel.facets.all.named.NamedFacet;
 import org.apache.isis.core.metamodel.facets.collections.sortedby.SortedByFacet;
 import org.apache.isis.core.metamodel.facets.members.cssclass.CssClassFacet;
 import org.apache.isis.core.metamodel.facets.members.cssclassfa.CssClassFaFacet;
+import org.apache.isis.core.metamodel.facets.members.cssclassfa.CssClassFaPosition;
 import org.apache.isis.core.metamodel.facets.members.render.RenderFacet;
 import org.apache.isis.core.metamodel.facets.object.bookmarkpolicy.BookmarkPolicyFacet;
 import org.apache.isis.core.metamodel.facets.object.membergroups.MemberGroupLayoutFacet;
@@ -67,6 +63,14 @@ import org.apache.isis.core.metamodel.spec.feature.ObjectAction;
 import org.apache.isis.core.metamodel.spec.feature.ObjectAssociation;
 import org.apache.isis.core.metamodel.spec.feature.OneToManyAssociation;
 import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
+
+import org.isisaddons.module.devutils.dom.layoutjson.repr.ActionLayoutRepr;
+import org.isisaddons.module.devutils.dom.layoutjson.repr.ActionRepr;
+import org.isisaddons.module.devutils.dom.layoutjson.repr.CollectionLayoutRepr;
+import org.isisaddons.module.devutils.dom.layoutjson.repr.ColumnRepr;
+import org.isisaddons.module.devutils.dom.layoutjson.repr.MemberGroupRepr;
+import org.isisaddons.module.devutils.dom.layoutjson.repr.MemberRepr;
+import org.isisaddons.module.devutils.dom.layoutjson.repr.PropertyLayoutRepr;
 
 public class LayoutJsonExporter {
 
@@ -337,8 +341,21 @@ public class LayoutJsonExporter {
         return value == BookmarkPolicy.NEVER? null: value;
     }
 
-    public static ActionLayout.CssClassFaPosition cssClassFaPositionLeftToNull(final ActionLayout.CssClassFaPosition position) {
-        return position == ActionLayout.CssClassFaPosition.LEFT? null: position;
+    public static ActionLayout.CssClassFaPosition cssClassFaPositionLeftToNull(final CssClassFaPosition position) {
+        return position == CssClassFaPosition.LEFT ? null: convert(position);
+    }
+
+    private static ActionLayout.CssClassFaPosition convert(final CssClassFaPosition position) {
+        if(position == null) {
+            return null;
+        }
+        switch (position) {
+        case LEFT:
+            return ActionLayout.CssClassFaPosition.LEFT;
+        case RIGHT:
+            return ActionLayout.CssClassFaPosition.RIGHT;
+        }
+        throw new IllegalArgumentException("Not recognized: " + position);
     }
 
     private static Boolean trueToNull(final boolean escaped) {
