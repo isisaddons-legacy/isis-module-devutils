@@ -99,6 +99,15 @@ To use "out-of-the-box":
     &lt;/dependency&gt;
 </pre>
 
+* in your project's `webapp` module, update your `WEB-INF/isis.properties`.
+
+<pre>
+  isis.services.ServicesInstallerFromAnnotation.packagePrefix=\
+                                ...\        
+                                org.isisaddons.module.devutils,\
+                                ...
+</pre>
+
 
 #### "Out-of-the-box" (-SNAPSHOT) ####
 
