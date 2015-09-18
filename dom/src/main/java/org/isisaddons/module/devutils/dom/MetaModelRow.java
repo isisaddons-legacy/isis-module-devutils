@@ -28,26 +28,28 @@ import org.apache.isis.applib.util.ObjectContracts;
 import org.apache.isis.core.commons.lang.StringExtensions;
 import org.apache.isis.core.metamodel.facetapi.Facet;
 import org.apache.isis.core.metamodel.facets.ImperativeFacet;
-import org.apache.isis.core.metamodel.facets.param.choices.ActionChoicesFacet;
 import org.apache.isis.core.metamodel.facets.actions.defaults.ActionDefaultsFacet;
+import org.apache.isis.core.metamodel.facets.actions.validate.ActionValidationFacet;
 import org.apache.isis.core.metamodel.facets.all.hide.HiddenFacet;
+import org.apache.isis.core.metamodel.facets.collections.validate.CollectionValidateAddToFacet;
+import org.apache.isis.core.metamodel.facets.collections.validate.CollectionValidateRemoveFromFacet;
+import org.apache.isis.core.metamodel.facets.members.disabled.DisabledFacet;
 import org.apache.isis.core.metamodel.facets.param.autocomplete.ActionParameterAutoCompleteFacet;
+import org.apache.isis.core.metamodel.facets.param.choices.ActionChoicesFacet;
 import org.apache.isis.core.metamodel.facets.param.choices.ActionParameterChoicesFacet;
 import org.apache.isis.core.metamodel.facets.param.defaults.ActionParameterDefaultsFacet;
 import org.apache.isis.core.metamodel.facets.properties.autocomplete.PropertyAutoCompleteFacet;
 import org.apache.isis.core.metamodel.facets.properties.choices.PropertyChoicesFacet;
 import org.apache.isis.core.metamodel.facets.properties.defaults.PropertyDefaultFacet;
+import org.apache.isis.core.metamodel.facets.properties.validating.PropertyValidateFacet;
 import org.apache.isis.core.metamodel.spec.ObjectSpecification;
 import org.apache.isis.core.metamodel.spec.feature.ObjectAction;
 import org.apache.isis.core.metamodel.spec.feature.ObjectActionParameter;
 import org.apache.isis.core.metamodel.spec.feature.ObjectMember;
 import org.apache.isis.core.metamodel.spec.feature.OneToManyAssociation;
 import org.apache.isis.core.metamodel.spec.feature.OneToOneAssociation;
-import org.apache.isis.core.metamodel.facets.actions.validate.ActionValidationFacet;
-import org.apache.isis.core.metamodel.facets.collections.validate.CollectionValidateAddToFacet;
-import org.apache.isis.core.metamodel.facets.collections.validate.CollectionValidateRemoveFromFacet;
-import org.apache.isis.core.metamodel.facets.members.disabled.DisabledFacet;
-import org.apache.isis.core.metamodel.facets.properties.validating.PropertyValidateFacet;
+import org.apache.isis.core.metamodel.specloader.specimpl.ContributeeMember;
+import org.apache.isis.core.metamodel.specloader.specimpl.ContributeeMember2;
 
 public class MetaModelRow implements Comparable<MetaModelRow>{
 
@@ -108,6 +110,19 @@ public class MetaModelRow implements Comparable<MetaModelRow>{
     public String getNumParams() {
         return action!=null?""+action.getParameterCount():"";
     }
+
+    public boolean isContributed() {
+        return member instanceof ContributeeMember;
+    }
+
+    public String getContributedBy() {
+        if(member instanceof ContributeeMember2) {
+            final ObjectSpecification serviceContributedBy = ((ContributeeMember2) member).getServiceContributedBy();
+            return serviceContributedBy.getCorrespondingClass().getSimpleName();
+        }
+        return "";
+    }
+
     String getHidden() {
         return interpret(HiddenFacet.class);
     }
@@ -115,18 +130,21 @@ public class MetaModelRow implements Comparable<MetaModelRow>{
         return interpret(DisabledFacet.class);
     }
     public String getChoices() {
-        if(memberType == MemberType.PROPERTY) {
+        switch (memberType) {
+        case PROPERTY:
             return interpretRowAndFacet(PropertyChoicesFacet.class);
-        } else if(memberType == MemberType.COLLECTION) {
+        case COLLECTION:
             return "";
-        } else {
+        default:
             final List<ObjectActionParameter> parameters = this.action.getParameters();
             final SortedSet<String> interpretations = Sets.newTreeSet();
             for (ObjectActionParameter param : parameters) {
                 final ActionParameterChoicesFacet facet = param.getFacet(ActionParameterChoicesFacet.class);
                 addIfNotEmpty(interpretFacet(facet), interpretations);
             }
-            return !interpretations.isEmpty()? Joiner.on(";").join(interpretations) : interpretRowAndFacet(ActionChoicesFacet.class);
+            return !interpretations.isEmpty() ?
+                    Joiner.on(";").join(interpretations) :
+                    interpretRowAndFacet(ActionChoicesFacet.class);
         }
     }
     public String getAutoComplete() {
@@ -173,7 +191,7 @@ public class MetaModelRow implements Comparable<MetaModelRow>{
     }
 
     static Object header() {
-        return "classType,packageName,className,memberType,memberName,numParams,hidden,disabled,choices,autoComplete,default,validate";
+        return "classType,packageName,className,memberType,memberName,numParams,contributed,contributedBy,hidden,disabled,choices,autoComplete,default,validate";
     }
     
     String asTextCsv() {
@@ -184,6 +202,8 @@ public class MetaModelRow implements Comparable<MetaModelRow>{
                 getType(),
                 getMemberName(),
                 getNumParams(),
+                isContributed() ? "Y" : "",
+                getContributedBy(),
                 getHidden(),
                 getDisabled(),
                 getChoices(),
