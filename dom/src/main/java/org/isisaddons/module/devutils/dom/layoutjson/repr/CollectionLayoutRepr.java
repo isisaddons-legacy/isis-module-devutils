@@ -24,6 +24,7 @@ public class CollectionLayoutRepr {
 
     public String cssClass;
     public String describedAs;
+    public String defaultView;
     public Where hidden;
     public String named;
     public Boolean namedEscaped;
