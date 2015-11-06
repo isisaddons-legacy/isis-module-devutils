@@ -43,6 +43,7 @@ import org.apache.isis.core.metamodel.facets.actions.position.ActionPositionFace
 import org.apache.isis.core.metamodel.facets.all.describedas.DescribedAsFacet;
 import org.apache.isis.core.metamodel.facets.all.hide.HiddenFacet;
 import org.apache.isis.core.metamodel.facets.all.named.NamedFacet;
+import org.apache.isis.core.metamodel.facets.collections.collection.defaultview.DefaultViewFacet;
 import org.apache.isis.core.metamodel.facets.collections.sortedby.SortedByFacet;
 import org.apache.isis.core.metamodel.facets.members.cssclass.CssClassFacet;
 import org.apache.isis.core.metamodel.facets.members.cssclassfa.CssClassFaFacet;
@@ -224,6 +225,11 @@ public class LayoutJsonExporter {
             final DescribedAsFacet describedAsFacet = objectMember.getFacet(DescribedAsFacet.class);
             if(defined(describedAsFacet)) {
                 layoutRepr.describedAs = Strings.emptyToNull(describedAsFacet.value());
+            }
+
+            final DefaultViewFacet defaultViewFacet = objectMember.getFacet(DefaultViewFacet.class);
+            if(defined(defaultViewFacet)) {
+                layoutRepr.defaultView = Strings.emptyToNull(defaultViewFacet.value());
             }
 
             final HiddenFacet hiddenFacet = objectMember.getFacet(HiddenFacet.class);
