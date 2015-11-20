@@ -16,10 +16,8 @@
  */
 package org.isisaddons.module.devutils.dom;
 
-import java.util.List;
 import javax.inject.Inject;
-import org.isisaddons.module.devutils.DevUtilsModule;
-import org.apache.isis.applib.Identifier;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.Contributed;
@@ -31,6 +29,8 @@ import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Clob;
 
+import org.isisaddons.module.devutils.DevUtilsModule;
+
 @DomainService(
         nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY
 )
@@ -41,47 +41,18 @@ import org.apache.isis.applib.value.Clob;
 public class DeveloperUtilitiesServiceContributions  {
 
     public static abstract class PropertyDomainEvent<T> extends DevUtilsModule.PropertyDomainEvent<DeveloperUtilitiesServiceContributions, T> {
-        public PropertyDomainEvent(final DeveloperUtilitiesServiceContributions source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public PropertyDomainEvent(final DeveloperUtilitiesServiceContributions source, final Identifier identifier, final T oldValue, final T newValue) {
-            super(source, identifier, oldValue, newValue);
-        }
     }
 
     public static abstract class CollectionDomainEvent<T> extends DevUtilsModule.CollectionDomainEvent<DeveloperUtilitiesServiceContributions, T> {
-        public CollectionDomainEvent(final DeveloperUtilitiesServiceContributions source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of) {
-            super(source, identifier, of);
-        }
-
-        public CollectionDomainEvent(final DeveloperUtilitiesServiceContributions source, final Identifier identifier, final org.apache.isis.applib.services.eventbus.CollectionDomainEvent.Of of, final T value) {
-            super(source, identifier, of, value);
-        }
     }
 
     public static abstract class ActionDomainEvent extends DevUtilsModule.ActionDomainEvent<DeveloperUtilitiesServiceContributions> {
-        public ActionDomainEvent(final DeveloperUtilitiesServiceContributions source, final Identifier identifier) {
-            super(source, identifier);
-        }
-
-        public ActionDomainEvent(final DeveloperUtilitiesServiceContributions source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
-
-        public ActionDomainEvent(final DeveloperUtilitiesServiceContributions source, final Identifier identifier, final List<Object> arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
 
     // //////////////////////////////////////
 
-    public static class DownloadLayoutEvent extends ActionDomainEvent {
-        public DownloadLayoutEvent(DeveloperUtilitiesServiceContributions source, Identifier identifier, Object... args) {
-            super(source, identifier, args);
-        }
-    }
+    public static class DownloadLayoutEvent extends ActionDomainEvent {}
 
     /**
      * Download the JSON layout of the domain object's type.

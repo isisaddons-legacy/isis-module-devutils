@@ -17,8 +17,7 @@
 package org.isisaddons.module.devutils.dom;
 
 import javax.inject.Inject;
-import org.isisaddons.module.devutils.DevUtilsModule;
-import org.apache.isis.applib.Identifier;
+
 import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.DomainService;
@@ -29,6 +28,8 @@ import org.apache.isis.applib.annotation.RestrictTo;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.value.Blob;
 import org.apache.isis.applib.value.Clob;
+
+import org.isisaddons.module.devutils.DevUtilsModule;
 
 @DomainService(
         nature = NatureOfService.VIEW_MENU_ONLY
@@ -41,17 +42,11 @@ import org.apache.isis.applib.value.Clob;
 public class DeveloperUtilitiesServiceMenu {
 
     public static abstract class ActionDomainEvent extends DevUtilsModule.ActionDomainEvent<DeveloperUtilitiesServiceMenu> {
-        public ActionDomainEvent(final DeveloperUtilitiesServiceMenu source, final Identifier identifier, final Object... arguments) {
-            super(source, identifier, arguments);
-        }
     }
 
     // //////////////////////////////////////
 
     public static class DownloadMetaModelEvent extends ActionDomainEvent {
-        public DownloadMetaModelEvent(final DeveloperUtilitiesServiceMenu source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
     }
 
     @Action(
@@ -70,9 +65,6 @@ public class DeveloperUtilitiesServiceMenu {
     // //////////////////////////////////////
 
     public static class RefreshServicesEvent extends ActionDomainEvent {
-        public RefreshServicesEvent(final DeveloperUtilitiesServiceMenu source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
     }
 
     @Action(
@@ -92,9 +84,6 @@ public class DeveloperUtilitiesServiceMenu {
     // //////////////////////////////////////
 
     public static class DownloadLayoutsEvent extends ActionDomainEvent {
-        public DownloadLayoutsEvent(final DeveloperUtilitiesServiceMenu source, final Identifier identifier, final Object... args) {
-            super(source, identifier, args);
-        }
     }
 
     @Action(
