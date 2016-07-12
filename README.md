@@ -2,7 +2,7 @@
 
 ## THIS MODULE HAS BEEN RETIRED ... 
 
-... EQUIVALENT FUNCTIONALITY IS NOW INCORPORATED INTO APACHE ISIS v1.12.0
+... EQUIVALENT FUNCTIONALITY IS NOW INCORPORATED INTO APACHE ISIS v1.13.0
 
 
 [![Build Status](https://travis-ci.org/isisaddons/isis-module-devutils.png?branch=master)](https://travis-ci.org/isisaddons/isis-module-devutils)
@@ -101,7 +101,7 @@ To use "out-of-the-box":
     &lt;dependency&gt;
         &lt;groupId&gt;org.isisaddons.module.devutils&lt;/groupId&gt;
         &lt;artifactId&gt;isis-module-devutils-dom&lt;/artifactId&gt;
-        &lt;version&gt;1.12.0&lt;/version&gt;
+        &lt;version&gt;1.13.0&lt;/version&gt;
     &lt;/dependency&gt;
 </pre>
 
@@ -132,7 +132,7 @@ If you want to use the current `-SNAPSHOT`, then the steps are the same as above
 * when updating the classpath, specify the appropriate -SNAPSHOT version:
 
 <pre>
-    &lt;version&gt;1.13.0-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.14.0-SNAPSHOT&lt;/version&gt;
 </pre>
 
 * add the repository definition to pick up the most recent snapshot (we use the Cloudbees continuous integration service).  We suggest defining the repository in a `<profile>`:
@@ -183,7 +183,9 @@ within the security module may move into this devutils module.
 
 ## Change Log ##
 
+* (no release in Isis 1.13.0; the module's functionality now part of the Apache Isis framework)
 * `1.12.0` - released against Isis 1.12.0
+* `1.11.0` - released against Isis 1.11.0
 * `1.10.0` - released against Isis 1.10.0
 * `1.9.0` - released against Isis 1.9.0
 * `1.8.0` - released against Isis 1.8.0, support new @XxxLayout annotations; domain events for actions.
